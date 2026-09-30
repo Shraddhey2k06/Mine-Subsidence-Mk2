@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MineWatch — Subsidence Monitoring</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><span class="mark"></span><h1>MineWatch</h1><span class="subtitle">Real-Time Subsidence Monitoring &amp; Early Warning — SIH26025</span></div>
+  <div class="status-cluster">
+    <span id="conn-status"><span class="status-dot online"></span>CONNECTED</span>
+    <span id="last-sync">LAST SYNC: --</span>
+    <span class="demo-flag">DEMO / SIMULATED DATA</span>
+    <span>Operator · Demo</span>
+  </div>
+</div>
+<div class="layout">
+  <div class="overview-row">
+    <div class="overview-card"><div class="label">Active Nodes</div><div class="value" id="ov-active-nodes">--</div></div>
+    <div class="overview-card"><div class="label">Offline Nodes</div><div class="value" id="ov-offline-nodes">--</div></div>
+    <div class="overview-card alert"><div class="label">Anomalies Detected</div><div class="value" id="ov-anomalies">--</div></div>
+    <div class="overview-card alert"><div class="label">High-Risk Zones</div><div class="value" id="ov-high-risk">--</div></div>
+    <div class="overview-card alert"><div class="label">Active Alerts</div><div class="value" id="ov-active-alerts">--</div></div>
+  </div>
+  <div class="main-grid">
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="panel"><div class="panel-header"><h2>Sensor Network — GIS View</h2></div><div class="panel-body" style="padding:0;"><div id="map"></div></div></div>
+      <div class="panel"><div class="panel-header"><h2>Live Sensor Readings</h2></div><div class="panel-body" style="padding:0;"><table class="sensor-table" id="sensor-table"><thead><tr><th>Node</th><th>Tilt (°)</th><th>Disp. (mm)</th><th>Vibration (g)</th><th>Crack</th><th>Anomaly</th><th>Risk</th><th>Last Update</th></tr></thead><tbody id="sensor-table-body"><tr><td colspan="8" style="color:var(--text-faint); padding:16px;">Starting simulator...</td></tr></tbody></table></div></div>
+      <div class="panel"><div class="panel-header"><h2>Trends — <span id="chart-node-label">select a node</span></h2><div class="chart-tabs"><button data-metric="displacement" class="active">Displacement</button><button data-metric="tilt">Tilt</button><button data-metric="vibration">Vibration</button></div></div><div class="panel-body"><canvas id="trend-chart"></canvas></div></div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="panel"><div class="panel-header"><h2>AI Analysis</h2></div><div class="panel-body" id="ai-panel"><div style="color:var(--text-faint);">Select a node to view its AI analysis.</div></div></div>
+      <div class="panel"><div class="panel-header"><h2>Alerts</h2></div><div class="panel-body" id="alerts-panel"><div style="color:var(--text-faint);">No alerts yet.</div></div></div>
+      <div class="panel"><div class="panel-header"><h2>Demo Controls</h2></div><div class="panel-body"><div class="demo-controls"><select id="demo-node-select"></select><select id="demo-scenario-select"><option value="NORMAL">NORMAL</option><option value="MINOR_ANOMALY">MINOR ANOMALY</option><option value="MODERATE_DEFORMATION">MODERATE DEFORMATION</option><option value="HIGH_RISK">HIGH RISK</option><option value="CRITICAL_EVENT">CRITICAL EVENT</option><option value="RECOVERY">RECOVERY</option></select><button id="demo-apply-scenario">Apply Scenario</button><button id="demo-run-sequence" class="primary">Run Full Demo Sequence</button><button id="demo-toggle-connectivity">Simulate Connection Loss</button><button id="demo-sync-now">Sync Now</button></div><div id="connectivity-status" style="margin-top:10px; font-family:var(--font-data); font-size:12px; color:var(--text-dim);"></div><p style="color:var(--text-dim);font-size:12px;margin-top:10px;margin-bottom:0;">Runs entirely in your browser for GitHub Pages. Sensor values are simulated; AI/risk scoring is a lightweight demonstrator and not a production safety system.</p></div></div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="static/js/dashboard.js"></script>
+</body>
+</html>
